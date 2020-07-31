@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace EmailServicesDemo.Pages
 {
+
     public class IndexModel : PageModel
     {
 
