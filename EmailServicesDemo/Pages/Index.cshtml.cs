@@ -7,6 +7,7 @@ using EmailServices;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Serilog;
 
 namespace EmailServicesDemo.Pages
 {
@@ -55,7 +56,14 @@ namespace EmailServicesDemo.Pages
             if (ModelState.IsValid)
             {
 
-                await _emailService.SendEmailAsync(Input.Email, Input.Subject, Input.Body);
+                try
+                {
+
+                    await _emailService.SendEmailAsync(Input.Email, Input.Subject, Input.Body);
+                } catch (Exception ex)
+                {
+                    Log.Error(ex, "Email Exception");
+                }
 
                 return RedirectToPage("./EmailSent");
 
