@@ -7,29 +7,18 @@ using System.Data.SqlClient;
 
 namespace EmailServices
 {
-    public class DatabaseEmailSender : IEmailService
+    public class TrashEmailSender : IEmailService
     {
-        private readonly IConfiguration _configuration;
 
-        private string _profileName { get; set; }
-
-        private DbContextOptions<EmailContext> _databaseMailContextOptions { get; set; }
 
         private readonly ILogger _logger;
 
-        public DatabaseEmailSender(IConfiguration configuration)
+        public TrashEmailSender(IConfiguration configuration)
         {
-            _configuration = configuration;
-            _profileName = _configuration["EmailServices:DatabaseEmailSender:ProfileName"];
 
-
-            _databaseMailContextOptions = new DbContextOptionsBuilder<EmailContext>()
-                    .UseSqlServer(configuration["EmailServices:DatabaseEmailSender:DatabaseEmailConnection"])
-                    .Options;
 
             _logger = Log.ForContext<DatabaseEmailSender>();
 
-            _logger.Debug("Using mail server profile {0}", _profileName);
 
         }
 
@@ -71,41 +60,8 @@ namespace EmailServices
             _logger.Information("SendEmailAsync Called");
             _logger.Debug("Recipients {@0}, Subject {1}, Format Type {2}. Message {2}", recipients, subject, formatType, message);
 
-            try
-            {
 
-                using (var db = new EmailContext(_databaseMailContextOptions))
-                {
-                    string recipientsString = "";
-
-                    foreach (string recipient in recipients)
-                    {
-                        recipientsString += recipient + ";";
-                    }
-
-                    _logger.Debug("Sending to recipients string {0}", recipientsString);
-
-                    await db.Database.ExecuteSqlCommandAsync("EXEC sp_send_dbmail @profile_name = {0} , " +
-                        "@recipients = {1}, " +
-                        "@subject = {2}, " +
-                        "@body = {3}, " +
-                        "@body_format = {4}",
-                        _profileName,
-                        recipientsString,
-                        subject,
-                        message,
-                        formatType);
-
-                }
-            } catch (SqlException ex)
-            {
-
-                _logger.Error(ex, "Error Sending Email to Database Mail Server");
-
-                throw new EmailSenderException("Failed to send email.");
-
-            }
-
+            _logger.Warning("All emails will be sent to trash.");
         }
     }
 }

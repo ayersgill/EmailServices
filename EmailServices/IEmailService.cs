@@ -11,7 +11,7 @@ namespace EmailServices
 
         Task SendEmailAsync(string[] recipients, string subject, string textMessage);
 
-       
+        // Inherits SendEmailAsync(string recipient, string subject, string textMessage) from IEmailSender
 
     }
 }

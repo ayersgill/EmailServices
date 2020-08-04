@@ -13,10 +13,16 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Exceptions;
 
+
 namespace EmailServicesDemo
 {
     public class Startup
     {
+        private readonly ILogger _logger;
+
+        public IConfiguration Configuration { get; }
+
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -28,16 +34,18 @@ namespace EmailServicesDemo
                 .Enrich.WithThreadId()
                 .CreateLogger();
 
+            _logger = Log.ForContext<Startup>();
+
 
         }
 
-        public IConfiguration Configuration { get; }
+        
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
 
-            Log.Information("Configuring Services");
+            _logger.Information("Configuring Services");
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -49,21 +57,43 @@ namespace EmailServicesDemo
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddTransient<IEmailService, DatabaseEmailSender>();
+            var EmailImplementation = Configuration["EmailServices:ServiceImplementation"] +",EmailServicess";
+
+            var ImplementationType = Type.GetType(EmailImplementation);
+
+            if (ImplementationType == null)
+            {
+                _logger.Error("Class {0} not found.", EmailImplementation);
+
+                services.Add(new ServiceDescriptor(serviceType: typeof(IEmailService),
+                                           implementationType: typeof(TrashEmailSender),
+                                           lifetime: ServiceLifetime.Transient));
+
+            } else
+            {
+                // allows for dynamic implementation of Email Service
+                services.Add(new ServiceDescriptor(serviceType: typeof(IEmailService),
+                                           implementationType: Type.GetType(EmailImplementation),
+                                           lifetime: ServiceLifetime.Transient));
+            }
+
+
+
+     
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-           // if (env.IsDevelopment() || env.IsEnvironment("Integration"))
-         //   {
+            if (env.IsDevelopment() || env.IsEnvironment("Integration"))
+            {
                 app.UseDeveloperExceptionPage();
-         //   }
-         //   else
-         //   {
-         //       app.UseExceptionHandler("/Error");
-         //       app.UseHsts();
-         //   }
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                app.UseHsts();
+            }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
