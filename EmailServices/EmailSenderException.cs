@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EmailServices
 {
-    class EmailSenderException : Exception
+    public class EmailSenderException : Exception
     {
         public EmailSenderException()
         {
