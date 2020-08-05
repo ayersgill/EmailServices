@@ -57,27 +57,7 @@ namespace EmailServicesDemo
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            var EmailImplementation = Configuration["EmailServices:ServiceImplementation"] +",EmailServicess";
-
-            var ImplementationType = Type.GetType(EmailImplementation);
-
-            if (ImplementationType == null)
-            {
-                _logger.Error("Class {0} not found.", EmailImplementation);
-
-                services.Add(new ServiceDescriptor(serviceType: typeof(IEmailService),
-                                           implementationType: typeof(TrashEmailSender),
-                                           lifetime: ServiceLifetime.Transient));
-
-            } else
-            {
-                // allows for dynamic implementation of Email Service
-                services.Add(new ServiceDescriptor(serviceType: typeof(IEmailService),
-                                           implementationType: Type.GetType(EmailImplementation),
-                                           lifetime: ServiceLifetime.Transient));
-            }
-
-
+            services.AddEmailServices(Configuration["EmailServices:ServiceImplementation"]);
 
      
         }
