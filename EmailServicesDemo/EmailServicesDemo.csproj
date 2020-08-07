@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EmailServices\EmailServices.csproj" />
+    <ProjectReference Include="..\DASIT.EmailServices\DASIT.EmailServices.csproj" />
   </ItemGroup>
 
 </Project>

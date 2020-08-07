@@ -5,7 +5,7 @@ using System.Net.Sockets;
 using Microsoft.EntityFrameworkCore;
 using System.Data.SqlClient;
 
-namespace EmailServices
+namespace DASIT.EmailServices
 {
     public class DatabaseEmailSender : IEmailService
     {

@@ -3,14 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace EmailServices
+namespace DASIT.EmailServices
 {
     public static class EmailServicesConfiguration
     {
         public static void AddEmailServices(this IServiceCollection services, string ServiceImplementation)
         {
 
-            var EmailImplementation = ServiceImplementation + ",EmailServicess";
+            var EmailImplementation = ServiceImplementation + ",DASIT.EmailServices";
 
             var ImplementationType = Type.GetType(EmailImplementation);
 

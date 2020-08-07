@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.UI.Services;
 using System.Threading.Tasks;
 
-namespace EmailServices
+namespace DASIT.EmailServices
 {
     public interface IEmailService : IEmailSender
     {

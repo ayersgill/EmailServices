@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EmailServices
+namespace DASIT.EmailServices
 {
     public class EmailSenderException : Exception
     {

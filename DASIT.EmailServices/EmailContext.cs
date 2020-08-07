@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 
-namespace EmailServices
+namespace DASIT.EmailServices
 {
     public class EmailContext : DbContext
     {

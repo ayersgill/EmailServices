@@ -8,7 +8,7 @@ using MimeKit;
 using MimeKit.Text;
 using System.Net.Mail;
 
-namespace EmailServices
+namespace DASIT.EmailServices
 {
     public class MailKitSender : IEmailService
     {
