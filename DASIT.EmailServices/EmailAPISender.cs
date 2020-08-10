@@ -26,6 +26,7 @@ namespace DASIT.EmailServices
 
             _url = configuration["EmailServices:EmailAPISender:APISendUrl"];
             _token = configuration["EmailServices:EmailAPISender:SecurityToken"];
+            _fromAddress = configuration["EmailServices:EmailAPISender:FromAddress"];
 
             _logger = Log.ForContext<EmailAPISender>();
 
@@ -80,10 +81,20 @@ namespace DASIT.EmailServices
 
             };
 
-            var result = await (_url)
-               .WithHeader("X-Api-Key", _token)
-               .PostJsonAsync(message)
-               .ReceiveJson<bool>();
+            bool result = false;
+
+            try
+            {
+
+                result = await (_url)
+                   .WithHeader("X-Api-Key", _token)
+                   .PostJsonAsync(emailMessage)
+                   .ReceiveJson<bool>();
+
+            } catch (FlurlHttpException ex)
+            {
+                _logger.Error("HTTP Error", ex);
+            }
 
             if(!result)
             {
