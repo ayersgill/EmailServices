@@ -4,8 +4,9 @@ using Serilog;
 using System.Net.Sockets;
 using Microsoft.EntityFrameworkCore;
 using System.Data.SqlClient;
+using DASIT.EmailServices.Factory;
 
-namespace DASIT.EmailServices
+namespace DASIT.EmailServices.Trash
 {
     public class TrashEmailSender : IEmailService
     {
@@ -17,7 +18,7 @@ namespace DASIT.EmailServices
         {
 
 
-            _logger = Log.ForContext<DatabaseEmailSender>();
+            _logger = Log.ForContext<TrashEmailSender>();
 
 
         }

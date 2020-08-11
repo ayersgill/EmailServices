@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.UI.Services;
 using System.Threading.Tasks;
 
-namespace DASIT.EmailServices
+namespace DASIT.EmailServices.Factory
 {
     public interface IEmailService : IEmailSender
     {
@@ -10,6 +10,7 @@ namespace DASIT.EmailServices
         Task SendHtmlEmailAsync(string[] recipients, string subject, string htmlMessage);
 
         Task SendEmailAsync(string[] recipients, string subject, string textMessage);
+
 
         // Inherits SendEmailAsync(string recipient, string subject, string textMessage) from IEmailSender
 

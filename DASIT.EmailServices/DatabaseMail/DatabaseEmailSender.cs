@@ -4,33 +4,33 @@ using Serilog;
 using System.Net.Sockets;
 using Microsoft.EntityFrameworkCore;
 using System.Data.SqlClient;
-using System.Net.Http;
-using Flurl.Http;
+using DASIT.EmailServices.Factory;
 
-namespace DASIT.EmailServices
+namespace DASIT.EmailServices.DatabaseMail
 {
-    public class EmailAPISender : IEmailService
+    public class DatabaseEmailSender : IEmailService
     {
         private readonly IConfiguration _configuration;
 
-        private HttpClient client;
-        private string _url { get; set; }
-    private string _token { get; set; }
-    private string _fromAddress { get; set; }
+        private string _profileName { get; set; }
+
+        private DbContextOptions<EmailContext> _databaseMailContextOptions { get; set; }
 
         private readonly ILogger _logger;
 
-        public EmailAPISender(IConfiguration configuration)
+        public DatabaseEmailSender(IConfiguration configuration)
         {
             _configuration = configuration;
+            _profileName = _configuration["EmailServices:DatabaseEmailSender:ProfileName"];
 
-            _url = configuration["EmailServices:EmailAPISender:APISendUrl"];
-            _token = configuration["EmailServices:EmailAPISender:SecurityToken"];
-            _fromAddress = configuration["EmailServices:EmailAPISender:FromAddress"];
 
-            _logger = Log.ForContext<EmailAPISender>();
+            _databaseMailContextOptions = new DbContextOptionsBuilder<EmailContext>()
+                    .UseSqlServer(configuration["EmailServices:DatabaseEmailSender:DatabaseEmailConnection"])
+                    .Options;
 
-            _logger.Debug("Using mail api url {0} with token {1}", _url, _token);
+            _logger = Log.ForContext<DatabaseEmailSender>();
+
+            _logger.Debug("Using mail server profile {0}", _profileName);
 
         }
 
@@ -72,35 +72,39 @@ namespace DASIT.EmailServices
             _logger.Information("SendEmailAsync Called");
             _logger.Debug("Recipients {@0}, Subject {1}, Format Type {2}. Message {2}", recipients, subject, formatType, message);
 
-            var emailMessage = new EmailMessage
-            {
-                From = _fromAddress,
-                To = recipients,
-                Subject = subject,
-                Body = message
-
-            };
-
-            bool result = false;
-
             try
             {
 
-                result = await (_url)
-                   .WithHeader("X-Api-Key", _token)
-                   .PostJsonAsync(emailMessage)
-                   .ReceiveJson<bool>();
+                using (var db = new EmailContext(_databaseMailContextOptions))
+                {
+                    string recipientsString = "";
 
-            } catch (FlurlHttpException ex)
-            {
-                _logger.Error("HTTP Error", ex);
-            }
+                    foreach (string recipient in recipients)
+                    {
+                        recipientsString += recipient + ";";
+                    }
 
-            if(!result)
+                    _logger.Debug("Sending to recipients string {0}", recipientsString);
+
+                    await db.Database.ExecuteSqlCommandAsync("EXEC sp_send_dbmail @profile_name = {0} , " +
+                        "@recipients = {1}, " +
+                        "@subject = {2}, " +
+                        "@body = {3}, " +
+                        "@body_format = {4}",
+                        _profileName,
+                        recipientsString,
+                        subject,
+                        message,
+                        formatType);
+
+                }
+            } catch (SqlException ex)
             {
-                _logger.Error("Error Sending Email to Email API");
+
+                _logger.Error(ex, "Error Sending Email to Database Mail Server");
 
                 throw new EmailSenderException("Failed to send email.");
+
             }
 
         }

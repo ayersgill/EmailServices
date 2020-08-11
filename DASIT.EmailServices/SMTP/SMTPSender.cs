@@ -7,10 +7,11 @@ using System.Data.SqlClient;
 using MimeKit;
 using MimeKit.Text;
 using System.Net.Mail;
+using DASIT.EmailServices.Factory;
 
-namespace DASIT.EmailServices
+namespace DASIT.EmailServices.SMTP
 {
-    public class MailKitSender : IEmailService
+    public class SMTPSender : IEmailService
     {
         private readonly IConfiguration _configuration;
 
@@ -25,7 +26,7 @@ namespace DASIT.EmailServices
 
         private readonly ILogger _logger;
 
-        public MailKitSender(IConfiguration configuration)
+        public SMTPSender(IConfiguration configuration)
         {
             _configuration = configuration;
             _fromAddress = _configuration["EmailServices:MailKitSender:FromAddress"];
@@ -34,7 +35,7 @@ namespace DASIT.EmailServices
             _port = int.Parse(_configuration["EmailServices:MailKitSender:Port"]);
 
 
-            _logger = Log.ForContext<MailKitSender>();
+            _logger = Log.ForContext<SMTPSender>();
 
             _logger.Debug("Sending from {0} at {1} using {2}:{3}", _fromName, _fromAddress, _server, _port);
 
