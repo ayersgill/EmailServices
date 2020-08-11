@@ -4,7 +4,8 @@ using Serilog;
 using System.Net.Sockets;
 using Microsoft.EntityFrameworkCore;
 using System.Data.SqlClient;
-using DASIT.EmailServices.Factory;
+using DASIT.EmailServices.Interface;
+using DASIT.EmailServices.AspNet;
 
 namespace DASIT.EmailServices.DatabaseMail
 {

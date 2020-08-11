@@ -4,24 +4,18 @@ using Serilog;
 using System.Net.Sockets;
 using Microsoft.EntityFrameworkCore;
 using System.Data.SqlClient;
-using DASIT.EmailServices.AspNet;
+using System.Net.Http;
+using Flurl.Http;
+using DASIT.EmailServices.Interface;
 
-namespace DASIT.EmailServices.Trash
+namespace DASIT.EmailServices.Interface
 {
-    public class TrashEmailSender : IEmailService
+    public abstract class EmailSenderAbstract
     {
-
+        private readonly IConfiguration _configuration;
 
         private readonly ILogger _logger;
 
-        public TrashEmailSender(IConfiguration configuration)
-        {
-
-
-            _logger = Log.ForContext<TrashEmailSender>();
-
-
-        }
 
         public async Task SendHtmlEmailAsync(string recipient, string subject, string htmlMessage)
         {
@@ -55,14 +49,13 @@ namespace DASIT.EmailServices.Trash
             await SendEmailAsync(recipients, subject, "TEXT", textMessage);
         }
 
-        private async Task SendEmailAsync(string[] recipients, string subject, string formatType, string message)
+        private Task SendEmailAsync(string[] recipients, string subject, string formatType, string message)
         {
+            _logger.Error("Unimplemented SendEmailAsync Executed");
 
-            _logger.Information("SendEmailAsync Called");
-            _logger.Debug("Recipients {@0}, Subject {1}, Format Type {2}. Message {2}", recipients, subject, formatType, message);
+            return Task.CompletedTask;
 
-
-            _logger.Warning("All emails will be sent to trash.");
         }
+      
     }
 }

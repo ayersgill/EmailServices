@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using MimeKit;
 using MimeKit.Text;
 using System.Net.Mail;
-using DASIT.EmailServices.Factory;
+using DASIT.EmailServices.AspNet;
 
 namespace DASIT.EmailServices.SMTP
 {

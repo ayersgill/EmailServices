@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Configuration;
-using DASIT.EmailServices.Factory;
+using DASIT.EmailServices.AspNet;
+using DASIT.EmailServices.Interface;
 
-namespace DASIT.EmailServices.EmailAPI
+namespace DASIT.EmailServices.EmailAPI.AspNet
 {
 
     public class EmailAPISenderFactory : EmailServiceFactory

@@ -1,10 +1,9 @@
-﻿using DASIT.EmailServices.Factory;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DASIT.EmailServices
+namespace DASIT.EmailServices.AspNetCore
 {
     public static class EmailServicesConfiguration
     {
