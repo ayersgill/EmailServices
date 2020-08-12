@@ -6,22 +6,19 @@ using Microsoft.EntityFrameworkCore;
 using System.Data.SqlClient;
 using System.Net.Http;
 using Flurl.Http;
-using DASIT.EmailServices.AspNet;
+using DASIT.EmailServices.AspNetCore;
 
-namespace DASIT.EmailServices.EmailAPI.AspNet
+namespace DASIT.EmailServices.EmailAPI.AspNetCore
 {
     public class EmailAPISender : EmailAPISenderAbstract, IEmailService
     {
       
-       
-
-        public EmailAPISender(string APIUrl, string SecurityToken, string FromAddress)
+        public EmailAPISender(IConfiguration configuration)
         {
 
-
-            _url = APIUrl;
-            _token = SecurityToken;
-            _fromAddress = FromAddress;
+            _url = configuration["EmailServices:EmailAPISender:APISendUrl"];
+            _token = configuration["EmailServices:EmailAPISender:SecurityToken"];
+            _fromAddress = configuration["EmailServices:EmailAPISender:FromAddress"];
 
             _logger = Log.ForContext<EmailAPISender>();
 

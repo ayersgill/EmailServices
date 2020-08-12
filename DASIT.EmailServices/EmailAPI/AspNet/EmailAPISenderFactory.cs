@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 using System.Configuration;
 using DASIT.EmailServices.AspNet;
-using DASIT.EmailServices.Interface;
+
 
 namespace DASIT.EmailServices.EmailAPI.AspNet
 {
 
-    public class EmailAPISenderFactory : EmailServiceFactory
+    public class EmailAPISenderFactory : IEmailServiceFactory
     {
         private string _url { get; set; }
         private string _token { get; set; }
@@ -25,7 +25,7 @@ namespace DASIT.EmailServices.EmailAPI.AspNet
         }
 
 
-        public override IEmailService GetEmailSender()
+        public IEmailService GetEmailSender()
         {
 
             return new EmailAPISender(_url, _token, _fromAddress);

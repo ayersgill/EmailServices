@@ -6,15 +6,13 @@ using Microsoft.EntityFrameworkCore;
 using System.Data.SqlClient;
 using System.Net.Http;
 using Flurl.Http;
-using DASIT.EmailServices.Interface;
 
-namespace DASIT.EmailServices.Interface
+namespace DASIT.EmailServices.Abstract
 {
     public abstract class EmailSenderAbstract
     {
-        private readonly IConfiguration _configuration;
 
-        private readonly ILogger _logger;
+        protected ILogger _logger;
 
 
         public async Task SendHtmlEmailAsync(string recipient, string subject, string htmlMessage)
@@ -49,13 +47,8 @@ namespace DASIT.EmailServices.Interface
             await SendEmailAsync(recipients, subject, "TEXT", textMessage);
         }
 
-        private Task SendEmailAsync(string[] recipients, string subject, string formatType, string message)
-        {
-            _logger.Error("Unimplemented SendEmailAsync Executed");
-
-            return Task.CompletedTask;
-
-        }
+        public abstract Task SendEmailAsync(string[] recipients, string subject, string formatType, string message);
+       
       
     }
 }

@@ -6,22 +6,20 @@ using Microsoft.EntityFrameworkCore;
 using System.Data.SqlClient;
 using System.Net.Http;
 using Flurl.Http;
-using DASIT.EmailServices.Interface;
+using DASIT.EmailServices.Abstract;
 
 namespace DASIT.EmailServices.EmailAPI
 {
     public abstract class EmailAPISenderAbstract : EmailSenderAbstract
     {
        
-        private string _url { get; set; }
-        private string _token { get; set; }
-        private string _fromAddress { get; set; }
-
-        private readonly ILogger _logger;
+        protected string _url { get; set; }
+        protected string _token { get; set; }
+        protected string _fromAddress { get; set; }
 
        
 
-        private async Task SendEmailAsync(string[] recipients, string subject, string formatType, string message)
+        public override async Task SendEmailAsync(string[] recipients, string subject, string formatType, string message)
         {
 
             _logger.Information("SendEmailAsync Called");

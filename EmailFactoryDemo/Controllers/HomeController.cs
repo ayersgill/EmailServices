@@ -40,7 +40,7 @@ namespace EmailFactoryDemo.Controllers
 
                 await send.SendEmailAsync(model.Email, model.Subject, model.Body);
 
-               // return RedirectToAction("EmailSent", "Home");
+               return RedirectToAction("EmailSent", "Home");
 
                 /*
                 var user = await UserManager.FindByNameAsync(model.Email);
