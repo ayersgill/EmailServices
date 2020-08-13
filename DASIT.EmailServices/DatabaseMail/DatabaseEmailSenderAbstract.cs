@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using Microsoft.EntityFrameworkCore;
 using System.Data.SqlClient;
 using DASIT.EmailServices.Abstract;
+using System.Net.Mail;
 
 namespace DASIT.EmailServices.DatabaseMail
 {
@@ -15,11 +16,13 @@ namespace DASIT.EmailServices.DatabaseMail
 
         protected DbContextOptions<EmailContext> _databaseMailContextOptions { get; set; }
 
-        public override async Task SendEmailAsync(string[] recipients, string subject, string formatType, string message)
+        public override async Task SendEmailAsync(MailMessage mailMessage)
         {
 
             _logger.Information("SendEmailAsync Called");
-            _logger.Debug("Recipients {@0}, Subject {1}, Format Type {2}. Message {2}", recipients, subject, formatType, message);
+            _logger.Debug("Mail Message {@0}", mailMessage);
+
+            string formatType;
 
             try
             {
@@ -28,12 +31,20 @@ namespace DASIT.EmailServices.DatabaseMail
                 {
                     string recipientsString = "";
 
-                    foreach (string recipient in recipients)
+                    foreach (var recipient in mailMessage.To)
                     {
-                        recipientsString += recipient + ";";
+                        recipientsString += recipient.Address + ";";
                     }
 
                     _logger.Debug("Sending to recipients string {0}", recipientsString);
+
+                    if(mailMessage.IsBodyHtml)
+                    {
+                        formatType = "HTML";
+                    } else
+                    {
+                        formatType = "TEXT";
+                    }
 
                     await db.Database.ExecuteSqlCommandAsync("EXEC sp_send_dbmail @profile_name = {0} , " +
                         "@recipients = {1}, " +
@@ -42,8 +53,8 @@ namespace DASIT.EmailServices.DatabaseMail
                         "@body_format = {4}",
                         _profileName,
                         recipientsString,
-                        subject,
-                        message,
+                        mailMessage.Subject,
+                        mailMessage.Body,
                         formatType);
 
                 }

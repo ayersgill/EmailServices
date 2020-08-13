@@ -27,32 +27,30 @@ namespace DASIT.EmailServices.SMTP
 
 
 
-        public override async Task SendEmailAsync(string[] recipients, string subject, string formatType, string message)
+        public override async Task SendEmailAsync(MailMessage mailMessage)
         {
 
             _logger.Information("SendEmailAsync Called");
-            _logger.Debug("Recipients {@0}, Subject {1}, Format Type {2}. Message {3}", recipients, subject, formatType, message);
+            _logger.Debug("Mail Message {@0}", mailMessage);
 
             var msg = new MimeMessage();
             msg.From.Add(new MailboxAddress(_fromName, _fromAddress));
 
-            msg.Subject = subject;
+            msg.Subject = mailMessage.Subject;
 
-            foreach (var email in recipients)
+            foreach (var email in mailMessage.To)
             {
-                msg.To.Add(MailboxAddress.Parse(email));
+                msg.To.Add(MailboxAddress.Parse(email.Address));
             }
 
-
-            if(formatType == "TEXT")
+            if (mailMessage.IsBodyHtml)
             {
-                msg.Body = new TextPart(TextFormat.Plain) { Text = message };
-
-            } else
-            {
-                msg.Body = new TextPart(TextFormat.Html) { Text = message };
+                msg.Body = new TextPart(TextFormat.Html) { Text = mailMessage.Body };
+            } else {
+                msg.Body = new TextPart(TextFormat.Plain) { Text = mailMessage.Body };
             }
 
+           
 
             using (var client = new MailKit.Net.Smtp.SmtpClient())
             {

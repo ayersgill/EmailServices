@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Serilog;
 using DASIT.EmailServices.Abstract;
+using System.Net.Mail;
 
 namespace DASIT.EmailServices.Trash
 {
@@ -10,11 +11,11 @@ namespace DASIT.EmailServices.Trash
 
 
 
-        public override async Task SendEmailAsync(string[] recipients, string subject, string formatType, string message)
+        public override async Task SendEmailAsync(MailMessage mailMessage)
         {
 
             _logger.Information("SendEmailAsync Called");
-            _logger.Debug("Recipients {@0}, Subject {1}, Format Type {2}. Message {2}", recipients, subject, formatType, message);
+            _logger.Debug("MailMessage {@0}", mailMessage);
 
 
             _logger.Warning("All emails will be sent to trash.");

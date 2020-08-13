@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Net.Http;
 using Flurl.Http;
 using DASIT.EmailServices.Abstract;
+using System.Net.Mail;
 
 namespace DASIT.EmailServices.EmailAPI
 {
@@ -19,18 +20,18 @@ namespace DASIT.EmailServices.EmailAPI
 
        
 
-        public override async Task SendEmailAsync(string[] recipients, string subject, string formatType, string message)
+        public override async Task SendEmailAsync(MailMessage mailMessage)
         {
 
             _logger.Information("SendEmailAsync Called");
-            _logger.Debug("Recipients {@0}, Subject {1}, Format Type {2}. Message {2}", recipients, subject, formatType, message);
+            _logger.Debug("MailMessage {@0}", mailMessage);
 
             var emailMessage = new EmailMessage
             {
                 From = _fromAddress,
-                To = recipients,
-                Subject = subject,
-                Body = message
+                To = GetArrayOfToAddresses(mailMessage),
+                Subject = mailMessage.Subject,
+                Body = mailMessage.Body
 
             };
 
