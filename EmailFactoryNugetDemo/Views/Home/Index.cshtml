@@ -1,0 +1,45 @@
+﻿@model EmailFactoryNugetDemo.Models.EmailViewModel
+@{
+    ViewBag.Title = "Email Demo";
+}
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "ui form" }))
+{
+    <div class="ui two column centered grid">
+        <div class="row">
+            <div class="column">
+                <h2>@ViewBag.Title</h2>
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary("", new { @class = "" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column field">
+                @Html.LabelFor(m => m.Email, new { @class = "" })
+                @Html.TextBoxFor(m => m.Email, new { @class = "" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="column field">
+                @Html.LabelFor(m => m.Subject, new { @class = "" })
+                @Html.TextBoxFor(m => m.Subject, new { @class = "" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="column field">
+                @Html.LabelFor(m => m.Body, new { @class = "" })
+                @Html.TextAreaFor(m => m.Body, new {
+               cols ="200",
+               rows="10",
+           Style="max-width:500px" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column">
+                <button type="submit" class="primary ui button" style="float:right;">Email Link</button>
+            </div>
+        </div>
+    </div>
+}

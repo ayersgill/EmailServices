@@ -8,3 +8,7 @@ DASIT.EmailServices/obj/
 EmailFactoryDemo/bin/
 EmailFactoryDemo/obj/
 packages/
+EmailFactoryNugetDemo/bin/
+EmailFactoryNugetDemo/obj/
+EmailServicesNugetDemo/bin/
+EmailServicesNugetDemo/obj/
