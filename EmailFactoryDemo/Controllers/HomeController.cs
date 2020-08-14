@@ -1,4 +1,5 @@
-﻿using DASIT.EmailServices.EmailAPI;
+﻿using DASIT.EmailServices.AspNet;
+using DASIT.EmailServices.EmailAPI;
 using DASIT.EmailServices.EmailAPI.AspNet;
 using EmailFactoryDemo.Models;
 using System;
@@ -35,8 +36,7 @@ namespace EmailFactoryDemo.Controllers
             {
 
 
-                var factory = new EmailAPISenderFactory();
-                var send = factory.GetEmailSender();
+                var send = EmailServiceFactory.GetEmailSender();
 
                 await send.SendEmailAsync(model.Email, model.Subject, model.Body);
 
