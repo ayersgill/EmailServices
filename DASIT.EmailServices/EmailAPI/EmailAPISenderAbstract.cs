@@ -8,6 +8,7 @@ using System.Net.Http;
 using Flurl.Http;
 using DASIT.EmailServices.Abstract;
 using System.Net.Mail;
+using System;
 
 namespace DASIT.EmailServices.EmailAPI
 {
@@ -34,6 +35,14 @@ namespace DASIT.EmailServices.EmailAPI
                 Body = mailMessage.Body
 
             };
+
+            if(mailMessage.From != null)
+            {
+                emailMessage.From = mailMessage.From.Address;
+            } else
+            {
+                emailMessage.From = _fromAddress;
+            }
 
             bool result = false;
 

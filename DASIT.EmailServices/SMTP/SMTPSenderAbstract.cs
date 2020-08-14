@@ -34,7 +34,16 @@ namespace DASIT.EmailServices.SMTP
             _logger.Debug("Mail Message {@0}", mailMessage);
 
             var msg = new MimeMessage();
-            msg.From.Add(new MailboxAddress(_fromName, _fromAddress));
+
+            if(mailMessage.From != null)
+            {
+                msg.From.Add(new MailboxAddress(mailMessage.From.DisplayName, mailMessage.From.Address));
+            } else
+            {
+                msg.From.Add(new MailboxAddress(_fromName, _fromAddress));
+            }
+
+            
 
             msg.Subject = mailMessage.Subject;
 
