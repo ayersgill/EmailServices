@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.UI.Services;
+using System.Net.Mail;
 using System.Threading.Tasks;
 
 namespace DASIT.EmailServices.AspNet
@@ -10,6 +11,7 @@ namespace DASIT.EmailServices.AspNet
         Task SendHtmlEmailAsync(string[] recipients, string subject, string htmlMessage);
         Task SendEmailAsync(string recipient, string subject, string textMessage);
         Task SendEmailAsync(string[] recipients, string subject, string textMessage);
+        Task SendEmailAsync(MailMessage mailMessage);
 
 
     }
