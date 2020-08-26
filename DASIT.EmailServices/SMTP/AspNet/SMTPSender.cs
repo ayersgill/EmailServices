@@ -15,13 +15,15 @@ namespace DASIT.EmailServices.SMTP.AspNet
     {
 
 
-        public SMTPSender(string FromAddress, string FromName, string Server, int Port)
+        public SMTPSender(string FromAddress, string FromName, string Server, int Port, string SubjectPrefix, string BodyPrefix)
         {
 
             _fromAddress = FromAddress;
             _fromName = FromName;
             _server = Server;
             _port = Port;
+            _subjectPrefix = SubjectPrefix;
+            _bodyPrefix = BodyPrefix;
 
 
             _logger = Log.ForContext<SMTPSender>();

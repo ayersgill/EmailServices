@@ -23,6 +23,7 @@ namespace DASIT.EmailServices.DatabaseMail
             _logger.Debug("Mail Message {@0}", mailMessage);
 
             string formatType;
+            string tempBodyPrefix;
 
             try
             {
@@ -41,9 +42,12 @@ namespace DASIT.EmailServices.DatabaseMail
                     if(mailMessage.IsBodyHtml)
                     {
                         formatType = "HTML";
+                        tempBodyPrefix = _bodyPrefix.Replace("\n", "<br>");
+                        
                     } else
                     {
                         formatType = "TEXT";
+                        tempBodyPrefix = _bodyPrefix.Replace("<br>", "\n");
                     }
 
                     await db.Database.ExecuteSqlCommandAsync("EXEC sp_send_dbmail @profile_name = {0} , " +
@@ -53,8 +57,8 @@ namespace DASIT.EmailServices.DatabaseMail
                         "@body_format = {4}",
                         _profileName,
                         recipientsString,
-                        mailMessage.Subject,
-                        mailMessage.Body,
+                        _subjectPrefix + mailMessage.Subject,
+                        tempBodyPrefix + mailMessage.Body,
                         formatType);
 
                 }

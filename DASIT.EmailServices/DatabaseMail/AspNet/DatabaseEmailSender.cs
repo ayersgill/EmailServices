@@ -13,7 +13,7 @@ namespace DASIT.EmailServices.DatabaseMail.AspNet
     {
 
        
-        public DatabaseEmailSender(string profileName, string databaseConnection)
+        public DatabaseEmailSender(string profileName, string databaseConnection, string SubjectPrefix, string BodyPrefix)
         {
 
             _profileName = profileName;
@@ -22,6 +22,9 @@ namespace DASIT.EmailServices.DatabaseMail.AspNet
             _databaseMailContextOptions = new DbContextOptionsBuilder<EmailContext>()
                     .UseSqlServer(databaseConnection)
                     .Options;
+
+            _subjectPrefix = SubjectPrefix;
+            _bodyPrefix = BodyPrefix;
 
             _logger = Log.ForContext<DatabaseEmailSender>();
 

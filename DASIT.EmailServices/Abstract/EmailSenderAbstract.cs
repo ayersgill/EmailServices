@@ -15,6 +15,8 @@ namespace DASIT.EmailServices.Abstract
 
         protected ILogger _logger;
 
+        protected string _subjectPrefix { get; set; }
+        protected string _bodyPrefix { get; set; }
 
         public async Task SendHtmlEmailAsync(string recipient, string subject, string htmlMessage)
         {
@@ -109,7 +111,6 @@ namespace DASIT.EmailServices.Abstract
             return emailAddressArray;
         }
 
-       // public abstract Task SendEmailAsync(string[] recipients, string subject, string formatType, string message);
 
         public abstract Task SendEmailAsync(MailMessage mailMessage);
 

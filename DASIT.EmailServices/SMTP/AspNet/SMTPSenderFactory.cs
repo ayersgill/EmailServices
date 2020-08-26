@@ -8,7 +8,7 @@ using DASIT.EmailServices.AspNet;
 namespace DASIT.EmailServices.SMTP.AspNet
 {
 
-    public class SMTPSenderFactory : IEmailServiceFactory
+    public class SMTPSenderFactory : EmailServiceFactoryAbstract, IEmailServiceFactory
     {
         private string _fromAddress { get; set; }
         private string _fromName { get; set; }
@@ -20,10 +20,16 @@ namespace DASIT.EmailServices.SMTP.AspNet
         public SMTPSenderFactory()
         {
 
-            _fromAddress = ConfigurationManager.AppSettings["EmailFromAddress"];
-            _fromName = ConfigurationManager.AppSettings["EmailFromName"];
-            _server = ConfigurationManager.AppSettings["EmailServer"];
-            _port = int.Parse(ConfigurationManager.AppSettings["EmailPort"]);
+            _fromAddress = ConfigurationManager.AppSettings["EmailFromAddress"] ?? throw new EmailSenderFactoryException("EmailFromAddress set to null");
+            _fromName = ConfigurationManager.AppSettings["EmailFromName"] ?? throw new EmailSenderFactoryException("EmailFromName set to null");
+            _server = ConfigurationManager.AppSettings["EmailServer"] ?? throw new EmailSenderFactoryException("EmailServer set to null");
+
+            var tempPort = ConfigurationManager.AppSettings["EmailPort"] ?? throw new EmailSenderFactoryException("EmailPort set to null");
+
+            _port = int.Parse(tempPort);
+
+            _subjectPrefix = ConfigurationManager.AppSettings["EmailSubjectPrefix"] ?? "";
+            _bodyPrefix = ConfigurationManager.AppSettings["EmailBodyPrefix"] ?? "";
 
 
         }
@@ -32,7 +38,7 @@ namespace DASIT.EmailServices.SMTP.AspNet
         public IEmailService GetEmailSender()
         {
 
-            return new SMTPSender(_fromAddress, _fromName, _server, _port);
+            return new SMTPSender(_fromAddress, _fromName, _server, _port, _subjectPrefix, _bodyPrefix);
 
         }
     }

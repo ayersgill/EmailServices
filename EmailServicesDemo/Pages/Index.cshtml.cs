@@ -60,7 +60,7 @@ namespace EmailServicesDemo.Pages
                 try
                 {
 
-                    await _emailService.SendEmailAsync(Input.Email, Input.Subject, Input.Body);
+                    await _emailService.SendHtmlEmailAsync(Input.Email, Input.Subject, Input.Body);
                 } catch (EmailSenderException ex)
                 {
                     Log.Error(ex, "Email Exception");

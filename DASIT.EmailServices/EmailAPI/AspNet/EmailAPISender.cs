@@ -15,13 +15,15 @@ namespace DASIT.EmailServices.EmailAPI.AspNet
       
        
 
-        public EmailAPISender(string APIUrl, string SecurityToken, string FromAddress)
+        public EmailAPISender(string APIUrl, string SecurityToken, string FromAddress, string SubjectPrefix, string BodyPrefix)
         {
 
 
             _url = APIUrl;
             _token = SecurityToken;
             _fromAddress = FromAddress;
+            _subjectPrefix = SubjectPrefix;
+            _bodyPrefix = BodyPrefix;
 
             _logger = Log.ForContext<EmailAPISender>();
 

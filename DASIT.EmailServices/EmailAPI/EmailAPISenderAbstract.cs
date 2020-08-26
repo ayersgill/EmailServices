@@ -31,8 +31,8 @@ namespace DASIT.EmailServices.EmailAPI
             {
                 From = _fromAddress,
                 To = GetArrayOfToAddresses(mailMessage),
-                Subject = mailMessage.Subject,
-                Body = mailMessage.Body
+                Subject = _subjectPrefix + mailMessage.Subject,
+                Body = _bodyPrefix + mailMessage.Body
 
             };
 

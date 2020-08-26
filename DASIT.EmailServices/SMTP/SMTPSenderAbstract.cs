@@ -33,6 +33,8 @@ namespace DASIT.EmailServices.SMTP
             _logger.Information("SendEmailAsync Called");
             _logger.Debug("Mail Message {@0}", mailMessage);
 
+            string tempBodyPrefix;
+
             var msg = new MimeMessage();
 
             if(mailMessage.From != null)
@@ -45,7 +47,7 @@ namespace DASIT.EmailServices.SMTP
 
             
 
-            msg.Subject = mailMessage.Subject;
+            msg.Subject = _subjectPrefix + mailMessage.Subject;
 
             foreach (var email in mailMessage.To)
             {
@@ -54,9 +56,11 @@ namespace DASIT.EmailServices.SMTP
 
             if (mailMessage.IsBodyHtml)
             {
-                msg.Body = new TextPart(TextFormat.Html) { Text = mailMessage.Body };
+                tempBodyPrefix = _bodyPrefix.Replace("\n", "<br>");
+                msg.Body = new TextPart(TextFormat.Html) { Text = tempBodyPrefix + mailMessage.Body };
             } else {
-                msg.Body = new TextPart(TextFormat.Plain) { Text = mailMessage.Body };
+                tempBodyPrefix = _bodyPrefix.Replace("<br>", "\n");
+                msg.Body = new TextPart(TextFormat.Plain) { Text = tempBodyPrefix + mailMessage.Body };
             }
 
            
