@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Data.SqlClient;
 using DASIT.EmailServices.Abstract;
 using System.Net.Mail;
+using System.Data;
 
 namespace DASIT.EmailServices.DatabaseMail
 {
@@ -50,6 +51,29 @@ namespace DASIT.EmailServices.DatabaseMail
                         tempBodyPrefix = _bodyPrefix.Replace("<br>", "\n");
                     }
 
+
+                    object[] parameters = {
+                        new SqlParameter("@param_profile_name", _profileName),
+                        new SqlParameter("@param_recipients", recipientsString),
+                        new SqlParameter("@param_subject", _subjectPrefix + mailMessage.Subject),
+                        new SqlParameter("@param_body", tempBodyPrefix + mailMessage.Body),
+                        new SqlParameter("@param_body_format", formatType),
+                        new SqlParameter
+                            {
+                                ParameterName = "@retVal",
+                                SqlDbType = SqlDbType.Int,
+                                Direction = ParameterDirection.Output,
+                                Value = -1
+                            }
+                    };
+
+                    await db.Database.ExecuteSqlCommandAsync("EXEC @retVal = sp_send_dbmail @profile_name = @param_profile_name, " +
+                        "@recipients = @param_recipients, @subject = @param_subject, @body = @param_body, @body_format = @param_body_format", parameters);
+
+
+                    /*
+
+
                     await db.Database.ExecuteSqlCommandAsync("EXEC sp_send_dbmail @profile_name = {0} , " +
                         "@recipients = {1}, " +
                         "@subject = {2}, " +
@@ -60,6 +84,21 @@ namespace DASIT.EmailServices.DatabaseMail
                         _subjectPrefix + mailMessage.Subject,
                         tempBodyPrefix + mailMessage.Body,
                         formatType);
+
+
+    */
+                    var result = (int) ((SqlParameter)parameters[5]).Value;
+
+                    if(result != 0)
+                    {
+
+                        _logger.Error("Failed to send email, received result code of " + result);
+
+
+                        throw new EmailSenderException("Failed to send email, received result code of " + result);
+
+
+                    }
 
                 }
             } catch (SqlException ex)

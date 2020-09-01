@@ -64,6 +64,9 @@ There must be an EmailServices block off the root, and there must be the full Cl
 wish to use in the application.  The sender is loaded by name, so take care to make sure you ahve the 
 correct name.
 
+The SubjectPrefix and BodyPrefix entries are optional.  Line breaks in the BodyPrefix can be either \n or <br>
+EmailServices will check it and convert it correctly based on the email type being sent (HTML or TEXT)
+
 NOTE: Each sender looks for the required settings in a block of its class name.  That is why the 
 configuration below, while containing configuration information for three different senders, is correct
 because the EmailAPISender sender will be loaded, and it looks for its settings at EmailServices:EmailAPISender
@@ -73,6 +76,8 @@ used determines who the email appears to be from.
 
 "EmailServices": {
     "ServiceImplementation": "DASIT.EmailServices.EmailAPI.AspNetCore.EmailAPISender",
+	"SubjectPrefix": "TEST - ",
+    "BodyPrefix":  "This is from test server<br><br>",
     "MailKitSender": {
       "FromAddress": "demo@oregon.gov",
       "FromName": "Demo Sender",
@@ -108,6 +113,9 @@ Configuration for EmailServices must be set in the appsettings section of the we
 
 Here you just need to specify the classname of the senderfactory you want to use (DO NOT use the full name, just the classname)
 
+The EmailSubjectPrefix and EmailBodyPrefix are optional.  Line breaks in the BodyPrefix can be either \n or <br> (with &lt; and &gt; used to escape html tags)
+EmailServices will check it and convert it correctly based on the email type being sent (HTML or TEXT)
+
 Similar to the Net Core configuration, each sender will look for its own needed configuration values, so the ones not needed will be ignored
 and not cause problems (Although not recommended for clarity).
 
@@ -117,6 +125,10 @@ used determines who the email appears to be from.
 <appSettings>
 
 	<add key="EmailSenderFactory" value="EmailAPISenderFactory"/> // or SMTPSenderFactory or DatabaseEmailSenderFactory
+	
+	<add key="EmailSubjectPrefix" value="Factory Test - " />
+    <add key="EmailBodyPrefix" value="Factory Test&lt;br&gt;&lt;br&gt;" />
+	
     <add key="EmailAPIUrl" value="https://emailapi-dev.dasapp.state.or.us/send" />
     <add key="EmailAPIToken" value="5908D47C-85D3-4024-8C2B-6EC9464398AD" />
     <add key="EmailAPIFrom" value="ACH.Coordinator@oregon.gov" />

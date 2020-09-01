@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DASIT.EmailServices" Version="0.1.2489-dev" />
+    <PackageReference Include="DASIT.EmailServices" Version="0.1.2576-dev" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Serilog.Enrichers.Thread" Version="3.1.0" />
