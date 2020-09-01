@@ -71,22 +71,6 @@ namespace DASIT.EmailServices.DatabaseMail
                         "@recipients = @param_recipients, @subject = @param_subject, @body = @param_body, @body_format = @param_body_format", parameters);
 
 
-                    /*
-
-
-                    await db.Database.ExecuteSqlCommandAsync("EXEC sp_send_dbmail @profile_name = {0} , " +
-                        "@recipients = {1}, " +
-                        "@subject = {2}, " +
-                        "@body = {3}, " +
-                        "@body_format = {4}",
-                        _profileName,
-                        recipientsString,
-                        _subjectPrefix + mailMessage.Subject,
-                        tempBodyPrefix + mailMessage.Body,
-                        formatType);
-
-
-    */
                     var result = (int) ((SqlParameter)parameters[5]).Value;
 
                     if(result != 0)
