@@ -56,7 +56,7 @@ namespace DASIT.EmailServices.SMTP
 
             if (mailMessage.IsBodyHtml)
             {
-                tempBodyPrefix = _bodyPrefix.Replace("\n", "<br>");
+                tempBodyPrefix = _bodyPrefix.Replace("\n", "<br \\>");
                 msg.Body = new TextPart(TextFormat.Html) { Text = tempBodyPrefix + mailMessage.Body };
             } else {
                 tempBodyPrefix = _bodyPrefix.Replace("<br>", "\n");

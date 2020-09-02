@@ -113,8 +113,8 @@ Configuration for EmailServices must be set in the appsettings section of the we
 
 Here you just need to specify the classname of the senderfactory you want to use (DO NOT use the full name, just the classname)
 
-The EmailSubjectPrefix and EmailBodyPrefix are optional.  Line breaks in the BodyPrefix can be either \n or <br> (with &lt; and &gt; used to escape html tags)
-EmailServices will check it and convert it correctly based on the email type being sent (HTML or TEXT)
+The EmailSubjectPrefix and EmailBodyPrefix are optional.  Line breaks in the BodyPrefix can be either \n or <br> (with &lt; and &gt; used to escape html tags
+and using &#10; for \n) EmailServices will check it and convert it correctly based on the email type being sent (HTML or TEXT)
 
 Similar to the Net Core configuration, each sender will look for its own needed configuration values, so the ones not needed will be ignored
 and not cause problems (Although not recommended for clarity).
