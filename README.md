@@ -1,6 +1,14 @@
 NOTE: View this file in a text viewer in the areas regarding using HTML tags for line breaks, 
 the text version is the correct version, viewing this file in devops will try to render the tags and give you wrong info.
 
+Webslurper Note:
+
+Webslurper is running on wddaswebl03.ad.state.or.us on ports 25 (for smtp connections) and  8090 and 8095
+
+http://wddaswebl03.ad.state.or.us:8090/ Is the correct url to get to the UI to view the emailService
+
+If wddaswebl03.ad.state.or.us is rebooted or there is a problem with mailslurper, it is located in 
+C:\Program Files\mailslurper-1.14.1-windows\mailslurper.exe and needs to be run as admin (because we couldn't get it installed as a service)
 
 
 
