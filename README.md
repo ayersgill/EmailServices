@@ -1,3 +1,9 @@
+NOTE: View this file in a text viewer in the areas regarding using HTML tags for line breaks, 
+the text version is the correct version, viewing this file in devops will try to render the tags and give you wrong info.
+
+
+
+
 Supported Email Senders:
 Database Mail
 SMTP
