@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailServicesNugetDemo", "E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailFactoryNugetDemo", "EmailFactoryNugetDemo\EmailFactoryNugetDemo.csproj", "{A12F1216-C7A5-42A3-880A-6EE9EE24182C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailServicesContainedDemo", "EmailServicesContainedDemo\EmailServicesContainedDemo.csproj", "{2DCA0AB4-FD2F-4250-A335-EDCF6E183CC3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{A12F1216-C7A5-42A3-880A-6EE9EE24182C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A12F1216-C7A5-42A3-880A-6EE9EE24182C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A12F1216-C7A5-42A3-880A-6EE9EE24182C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DCA0AB4-FD2F-4250-A335-EDCF6E183CC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DCA0AB4-FD2F-4250-A335-EDCF6E183CC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DCA0AB4-FD2F-4250-A335-EDCF6E183CC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DCA0AB4-FD2F-4250-A335-EDCF6E183CC3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

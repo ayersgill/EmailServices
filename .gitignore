@@ -12,3 +12,5 @@ EmailFactoryNugetDemo/bin/
 EmailFactoryNugetDemo/obj/
 EmailServicesNugetDemo/bin/
 EmailServicesNugetDemo/obj/
+EmailServicesContainedDemo/obj/
+EmailServicesContainedDemo/bin/
