@@ -28,7 +28,7 @@ namespace DASIT.EmailServices.SMTP.AspNet
 
             _logger = Log.ForContext<SMTPSender>();
 
-            _logger.Debug("Sending from {0} at {1} using {2}:{3}", _fromName, _fromAddress, _server, _port);
+            _logger.Debug("Configured to send from {0} at {1} using {2}:{3}", _fromName, _fromAddress, _server, _port);
 
         }
 
