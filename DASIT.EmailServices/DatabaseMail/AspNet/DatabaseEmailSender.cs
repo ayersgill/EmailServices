@@ -28,7 +28,7 @@ namespace DASIT.EmailServices.DatabaseMail.AspNet
 
             _logger = Log.ForContext<DatabaseEmailSender>();
 
-            _logger.Debug("Using mail server profile {0}", _profileName);
+            _logger.Debug("Configured to use mail server profile {0}", _profileName);
 
         }
 

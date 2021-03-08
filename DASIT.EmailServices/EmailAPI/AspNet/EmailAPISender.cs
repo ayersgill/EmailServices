@@ -27,7 +27,7 @@ namespace DASIT.EmailServices.EmailAPI.AspNet
 
             _logger = Log.ForContext<EmailAPISender>();
 
-            _logger.Debug("Using mail api url {0} with token {1}", _url, _token);
+            _logger.Debug("Configured to use mail api url {0} with token {1}", _url, _token);
 
         }
 
