@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using DASIT.EmailServices.Abstract;
 using System.Net.Mail;
 using System.Data;
+using Microsoft.Data.SqlClient;
 
 namespace DASIT.EmailServices.DatabaseMail
 {
@@ -67,7 +68,7 @@ namespace DASIT.EmailServices.DatabaseMail
                             }
                     };
 
-                    await db.Database.ExecuteSqlCommandAsync("EXEC @retVal = sp_send_dbmail @profile_name = @param_profile_name, " +
+                    await db.Database.ExecuteSqlRawAsync("EXEC @retVal = sp_send_dbmail @profile_name = @param_profile_name, " +
                         "@recipients = @param_recipients, @subject = @param_subject, @body = @param_body, @body_format = @param_body_format", parameters);
 
 
