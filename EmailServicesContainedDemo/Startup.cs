@@ -29,13 +29,11 @@ namespace EmailServicesContainedDemo
                 .ReadFrom.Configuration(Configuration)
                 .Enrich.WithExceptionDetails()
                 .Enrich.FromLogContext()
-                .Enrich.WithThreadId()
                 .CreateLogger();
 
             _logger = Log.ForContext<Startup>();
         }
 
-     
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -45,6 +43,8 @@ namespace EmailServicesContainedDemo
             _logger.Information("Configuring Services");
 
             services.AddEmailServices(Configuration["EmailServices:ServiceImplementation"]);
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,6 +64,7 @@ namespace EmailServicesContainedDemo
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSerilogRequestLogging();
 
             app.UseRouting();
 

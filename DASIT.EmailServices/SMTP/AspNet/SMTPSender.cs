@@ -1,12 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using System.Threading.Tasks;
-using Serilog;
-using System.Net.Sockets;
-using Microsoft.EntityFrameworkCore;
-using System.Data.SqlClient;
-using MimeKit;
-using MimeKit.Text;
-using System.Net.Mail;
+﻿using Serilog;
 using DASIT.EmailServices.AspNet;
 
 namespace DASIT.EmailServices.SMTP.AspNet
@@ -28,7 +20,7 @@ namespace DASIT.EmailServices.SMTP.AspNet
 
             _logger = Log.ForContext<SMTPSender>();
 
-            _logger.Debug("Configured to send from {0} at {1} using {2}:{3}", _fromName, _fromAddress, _server, _port);
+            _logger.Information("Configured to send from {fromName} at {fromAddress} using {server}:{port}", _fromName, _fromAddress, _server, _port);
 
         }
 

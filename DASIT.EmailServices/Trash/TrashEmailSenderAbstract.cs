@@ -13,10 +13,7 @@ namespace DASIT.EmailServices.Trash
 
         public override async Task SendEmailAsync(MailMessage mailMessage)
         {
-
-            _logger.Information("SendEmailAsync Called");
-            _logger.Debug("MailMessage {@0}", mailMessage);
-
+            _logger.Debug("SendEmailAsync {@mailMessage}", mailMessage);
 
             _logger.Warning("All emails will be sent to trash.");
 

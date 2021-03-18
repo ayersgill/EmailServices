@@ -1,12 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Serilog;
-using System.Net.Sockets;
-using Microsoft.EntityFrameworkCore;
-using System.Data.SqlClient;
-using System.Net.Http;
-using Flurl.Http;
 using System.Net.Mail;
+using System.Text.Json;
 
 namespace DASIT.EmailServices.Abstract
 {
@@ -18,11 +13,11 @@ namespace DASIT.EmailServices.Abstract
         protected string _subjectPrefix { get; set; }
         protected string _bodyPrefix { get; set; }
 
+        protected JsonSerializerOptions _mailMessageSerializerOptions { get; set; }
+
         public async Task SendHtmlEmailAsync(string recipient, string subject, string htmlMessage)
         {
-            _logger.Information("SendHtmlEmailAsync Called");
-            _logger.Debug("Email {0}, Subject {1}, HtmlMessage {2}", recipient, subject, htmlMessage);
-
+            _logger.Debug("SendHtmlEmailAsync for {recipient}, Subject {subject}, HtmlMessage {htmlMessage}", recipient, subject, htmlMessage);
 
             MailMessage email = new MailMessage()
             {
@@ -38,8 +33,7 @@ namespace DASIT.EmailServices.Abstract
 
         public async Task SendHtmlEmailAsync(string[] recipients, string subject, string htmlMessage)
         {
-            _logger.Information("SendHtmlEmailAsync Called");
-            _logger.Debug("Recipients {@0}, Subject {1}, HtmlMessage {2}", recipients, subject, htmlMessage);
+            _logger.Debug("SendHtmlEmailAsync for {@recipient}, Subject {subject}, HtmlMessage {htmlMessage", recipients, subject, htmlMessage);
 
             MailMessage email = new MailMessage()
             {
@@ -54,13 +48,14 @@ namespace DASIT.EmailServices.Abstract
                 email.To.Add(recipient);
             }
 
+           
+
             await SendEmailAsync(email);
         }
 
         public async Task SendEmailAsync(string recipient, string subject, string textMessage)
         {
-            _logger.Information("SendEmailAsync Called");
-            _logger.Debug("Email {0}, Subject {1}, TextMessage {2}", recipient, subject, textMessage);
+            _logger.Debug("SendEmailAsync for {recipient}, Subject {subject}, TextMessage {textMessage}", recipient, subject, textMessage);
 
             MailMessage email = new MailMessage()
             {
@@ -77,8 +72,7 @@ namespace DASIT.EmailServices.Abstract
 
         public async Task SendEmailAsync(string[] recipients, string subject, string textMessage)
         {
-            _logger.Information("SendEmailAsync Called");
-            _logger.Debug("Recipients {@0}, Subject {1}, TextMessage {2}", recipients, subject, textMessage);
+            _logger.Debug("SendEmailAsync for {@recipients}, Subject {subject}, TextMessage {textMessage", recipients, subject, textMessage);
 
             MailMessage email = new MailMessage()
             {
@@ -99,6 +93,8 @@ namespace DASIT.EmailServices.Abstract
 
         public string[] GetArrayOfToAddresses(MailMessage mailMessage)
         {
+            _logger.Debug("GetArrayOfToAddresses called with MailMessage {@mailMessage}", mailMessage);
+
             string[] emailAddressArray = new string[mailMessage.To.Count];
 
             int counter = 0;
@@ -107,6 +103,8 @@ namespace DASIT.EmailServices.Abstract
                 emailAddressArray[counter] = recipient.Address;
                 counter++;
             }
+
+            _logger.Debug("Returning Addresses {@emailAddressArray}", emailAddressArray);
 
             return emailAddressArray;
         }

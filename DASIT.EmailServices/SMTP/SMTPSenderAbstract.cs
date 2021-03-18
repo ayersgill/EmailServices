@@ -13,7 +13,7 @@ namespace DASIT.EmailServices.SMTP
 {
     public abstract class SMTPSenderAbstract : EmailSenderAbstract
     {
-       
+
 
         protected string _fromAddress { get; set; }
 
@@ -29,9 +29,8 @@ namespace DASIT.EmailServices.SMTP
 
         public override async Task SendEmailAsync(MailMessage mailMessage)
         {
-
-            _logger.Information("SendEmailAsync Called");
-            _logger.Debug("Mail Message {@0}", mailMessage);
+            // Yes, I hate having to do this, by MailMessage is non-serializable, so we need to do this stupid hack
+            _logger.Debug("SendEmailAsync Called with MailMessage {message}", JsonSerializer.Serialize(mailMessage, _mailMessageSerializerOptions));
 
             string tempBodyPrefix;
 
@@ -39,18 +38,21 @@ namespace DASIT.EmailServices.SMTP
 
             if(mailMessage.From != null)
             {
+                _logger.Debug("Creating email from {displayName} at {address}", mailMessage.From.DisplayName, mailMessage.From.Address);
                 msg.From.Add(new MailboxAddress(mailMessage.From.DisplayName, mailMessage.From.Address));
             } else
             {
+                _logger.Debug("Creating email from {displayName} at {address}", _fromName, _fromAddress);
                 msg.From.Add(new MailboxAddress(_fromName, _fromAddress));
             }
 
-            
-
             msg.Subject = _subjectPrefix + mailMessage.Subject;
+
+            _logger.Debug("Creating email with subject {subject}", msg.Subject);
 
             foreach (var email in mailMessage.To)
             {
+                _logger.Debug("Adding {email} as email recipient", email.Address);
                 msg.To.Add(MailboxAddress.Parse(email.Address));
             }
 
@@ -58,9 +60,11 @@ namespace DASIT.EmailServices.SMTP
             {
                 tempBodyPrefix = _bodyPrefix.Replace("\n", "<br \\>");
                 msg.Body = new TextPart(TextFormat.Html) { Text = tempBodyPrefix + mailMessage.Body };
+                _logger.Debug("HTML Body for Email {body}", msg.Body);
             } else {
                 tempBodyPrefix = _bodyPrefix.Replace("<br>", "\n");
                 msg.Body = new TextPart(TextFormat.Plain) { Text = tempBodyPrefix + mailMessage.Body };
+                _logger.Debug("Text Body for Email {body}", msg.Body);
             }
 
            
@@ -69,8 +73,10 @@ namespace DASIT.EmailServices.SMTP
             {
                 try
                 {
-
+                    _logger.Debug("Connecting to {server}:{port}", _server, _port);
                     await client.ConnectAsync(_server, _port, false);
+
+                    _logger.Debug("Sending Message {@message}", msg);
                     await client.SendAsync(msg);
                     await client.DisconnectAsync(true);
                 }
@@ -78,7 +84,7 @@ namespace DASIT.EmailServices.SMTP
                 {
                     _logger.Error(ex, "Error Sending Email to SMTP Server");
 
-                    throw new EmailSenderException("Failed to send email.");
+                    throw new EmailSenderException("Failed to send email.", ex);
                 }
             }
 

@@ -20,9 +20,7 @@ namespace DASIT.EmailServices.DatabaseMail
 
         public override async Task SendEmailAsync(MailMessage mailMessage)
         {
-
-            _logger.Information("SendEmailAsync Called");
-            _logger.Debug("Mail Message {@0}", mailMessage);
+            _logger.Debug("SendEmailAsync {@mailMessage}", mailMessage);
 
             string formatType;
             string tempBodyPrefix;
@@ -39,7 +37,7 @@ namespace DASIT.EmailServices.DatabaseMail
                         recipientsString += recipient.Address + ";";
                     }
 
-                    _logger.Debug("Sending to recipients string {0}", recipientsString);
+                    _logger.Debug("Sending to recipients string {recipientString}", recipientsString);
 
                     if(mailMessage.IsBodyHtml)
                     {
@@ -68,6 +66,8 @@ namespace DASIT.EmailServices.DatabaseMail
                             }
                     };
 
+                    _logger.Debug("Calling stored procedure with {@sqlParameters}", parameters);
+
                     await db.Database.ExecuteSqlRawAsync("EXEC @retVal = sp_send_dbmail @profile_name = @param_profile_name, " +
                         "@recipients = @param_recipients, @subject = @param_subject, @body = @param_body, @body_format = @param_body_format", parameters);
 
@@ -77,7 +77,7 @@ namespace DASIT.EmailServices.DatabaseMail
                     if(result != 0)
                     {
 
-                        _logger.Error("Failed to send email, received result code of " + result);
+                        _logger.Error("Failed to send email, received result code {result_code}", result);
 
 
                         throw new EmailSenderException("Failed to send email, received result code of " + result);
@@ -91,7 +91,7 @@ namespace DASIT.EmailServices.DatabaseMail
 
                 _logger.Error(ex, "Error Sending Email to Database Mail Server");
 
-                throw new EmailSenderException("Failed to send email.");
+                throw new EmailSenderException("Failed to send email.", ex);
 
             }
 

@@ -24,8 +24,7 @@ namespace DASIT.EmailServices.EmailAPI
         public override async Task SendEmailAsync(MailMessage mailMessage)
         {
 
-            _logger.Information("SendEmailAsync Called");
-            _logger.Debug("MailMessage {@0}", mailMessage);
+            _logger.Debug("SendEmailAsync {@mailMessage}", mailMessage);
 
             var emailMessage = new EmailMessage
             {
@@ -46,6 +45,8 @@ namespace DASIT.EmailServices.EmailAPI
 
             bool result = false;
 
+            _logger.Debug("Sending EmailMessage {@emailMessage}", emailMessage);
+
             try
             {
 
@@ -56,7 +57,9 @@ namespace DASIT.EmailServices.EmailAPI
 
             } catch (FlurlHttpException ex)
             {
-                _logger.Error("HTTP Error", ex);
+                _logger.Error(ex, "HTTP Error");
+
+                throw new EmailSenderException("Flurl Exception sending email.", ex);
             }
 
             if(!result)

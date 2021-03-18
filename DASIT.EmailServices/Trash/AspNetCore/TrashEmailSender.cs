@@ -15,9 +15,9 @@ namespace DASIT.EmailServices.Trash.AspNetCore
         public TrashEmailSender(IConfiguration configuration)
         {
 
-
             _logger = Log.ForContext<TrashEmailSender>();
 
+            _logger.Information("Using Trash for Email");
 
         }
 

@@ -1,13 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System.Threading.Tasks;
 using Serilog;
-using System.Net.Sockets;
-using Microsoft.EntityFrameworkCore;
-using System.Data.SqlClient;
-using MimeKit;
-using MimeKit.Text;
-using System.Net.Mail;
 using DASIT.EmailServices.AspNetCore;
+using System.Text.Json;
 
 namespace DASIT.EmailServices.SMTP.AspNetCore
 {
@@ -29,12 +23,18 @@ namespace DASIT.EmailServices.SMTP.AspNetCore
             _subjectPrefix = configuration["EmailServices:SubjectPrefix"] ?? "";
             _bodyPrefix = configuration["EmailServices:BodyPrefix"] ?? "";
 
+            _mailMessageSerializerOptions = new JsonSerializerOptions
+                  {
+                      Converters =
+                            {
+                                new MailMessageJsonConverter()
+                            }
+                  };
+
             _logger = Log.ForContext<SMTPSender>();
 
-            _logger.Debug("Configured to send from {0} at {1} using {2}:{3}", _fromName, _fromAddress, _server, _port);
+            _logger.Information("Configured to send from {fromName} at {fromAddress} using {server}:{port}", _fromName, _fromAddress, _server, _port);
 
         }
-
-      
     }
 }

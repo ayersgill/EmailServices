@@ -30,7 +30,7 @@ namespace DASIT.EmailServices.DatabaseMail.AspNetCore
 
             _logger = Log.ForContext<DatabaseEmailSender>();
 
-            _logger.Debug("Configured to use mail server profile {0}", _profileName);
+            _logger.Information("Configured to use mail server profile {profileName}", _profileName);
 
         }
 
