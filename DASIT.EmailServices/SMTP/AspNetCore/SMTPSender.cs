@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Serilog;
 using DASIT.EmailServices.AspNetCore;
-using System.Text.Json;
 using Newtonsoft.Json;
 
 namespace DASIT.EmailServices.SMTP.AspNetCore

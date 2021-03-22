@@ -2,16 +2,11 @@
 using System.Threading.Tasks;
 using Serilog;
 using System.Net.Sockets;
-using Microsoft.EntityFrameworkCore;
-using System.Data.SqlClient;
 using MimeKit;
 using MimeKit.Text;
 using System.Net.Mail;
 using DASIT.EmailServices.Abstract;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using Newtonsoft.Json;
-using DASIT.EmailServices.AspNetCore;
 
 namespace DASIT.EmailServices.SMTP
 {
@@ -31,16 +26,7 @@ namespace DASIT.EmailServices.SMTP
         public override async Task SendEmailAsync(MailMessage mailMessage)
         {
 
-        /*    JsonConvert.DefaultSettings = (() =>
-            {
-                var settings = new JsonSerializerSettings();
-                settings.Converters.Add(new MailAddressConverter());
-                settings.Converters.Add(new MemoryStreamConverter());
-                return settings;
-            });*/
-
-
-            // Yes, I hate having to do this, by MailMessage is non-serializable, so we need to do this stupid hack
+            // Yes, I hate having to do this, but MailMessage is non-serializable, so we need to do this stupid hack
             _logger.Debug("SendEmailAsync Called with MailMessage {message}", JsonConvert.SerializeObject(mailMessage));
 
             string tempBodyPrefix;
@@ -87,8 +73,7 @@ namespace DASIT.EmailServices.SMTP
                     _logger.Debug("Connecting to {server}:{port}", _server, _port);
                     await client.ConnectAsync(_server, _port, false);
 
-    
-
+                    // MimeMessage is too, btw
                     _logger.Debug("Sending Message {mimeMessage}", JsonConvert.SerializeObject(msg));
                     await client.SendAsync(msg);
                     await client.DisconnectAsync(true);

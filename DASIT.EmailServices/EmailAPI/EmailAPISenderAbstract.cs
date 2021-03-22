@@ -1,14 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
-using System.Threading.Tasks;
-using Serilog;
-using System.Net.Sockets;
-using Microsoft.EntityFrameworkCore;
-using System.Data.SqlClient;
-using System.Net.Http;
+﻿using System.Threading.Tasks;
 using Flurl.Http;
 using DASIT.EmailServices.Abstract;
 using System.Net.Mail;
-using System;
+using Newtonsoft.Json;
 
 namespace DASIT.EmailServices.EmailAPI
 {
@@ -24,7 +18,7 @@ namespace DASIT.EmailServices.EmailAPI
         public override async Task SendEmailAsync(MailMessage mailMessage)
         {
 
-            _logger.Debug("SendEmailAsync {@mailMessage}", mailMessage);
+            _logger.Debug("SendEmailAsync {mailMessage}", JsonConvert.SerializeObject(mailMessage));
 
             var emailMessage = new EmailMessage
             {

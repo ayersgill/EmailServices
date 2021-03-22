@@ -1,12 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System.Threading.Tasks;
 using Serilog;
-using System.Net.Sockets;
-using Microsoft.EntityFrameworkCore;
-using System.Data.SqlClient;
-using System.Net.Http;
-using Flurl.Http;
 using DASIT.EmailServices.AspNetCore;
+using Newtonsoft.Json;
 
 namespace DASIT.EmailServices.EmailAPI.AspNetCore
 {
@@ -21,6 +16,14 @@ namespace DASIT.EmailServices.EmailAPI.AspNetCore
             _fromAddress = configuration["EmailServices:EmailAPISender:FromAddress"] ?? throw new EmailSenderException("EmailAPI FromAddress set to null");
             _subjectPrefix = configuration["EmailServices:SubjectPrefix"] ?? "";
             _bodyPrefix = configuration["EmailServices:BodyPrefix"] ?? "";
+
+            JsonConvert.DefaultSettings = (() =>
+            {
+                var settings = new JsonSerializerSettings();
+                settings.Converters.Add(new MailAddressConverter());
+                settings.Converters.Add(new MemoryStreamConverter());
+                return settings;
+            });
 
             _logger = Log.ForContext<EmailAPISender>();
 

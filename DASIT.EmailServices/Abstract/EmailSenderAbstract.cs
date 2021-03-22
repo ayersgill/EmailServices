@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Serilog;
 using System.Net.Mail;
-using System.Text.Json;
 
 namespace DASIT.EmailServices.Abstract
 {
