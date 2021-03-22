@@ -14,6 +14,7 @@ namespace DASIT.EmailServices.AspNetCore
            Type typeToConvert,
            JsonSerializerOptions options)
         {
+            //No need for this library to ever read in a json string and populate MailMessage
             return null;
         }
 
@@ -22,7 +23,14 @@ namespace DASIT.EmailServices.AspNetCore
             MailMessage message,
             JsonSerializerOptions options)
         {
-            writer.WriteStringValue("foo");
+            writer.WriteStartObject();
+
+            if(message.From != null)
+            {
+                writer.WriteStartObject("From");
+                writer.WriteString(JsonEncodedText.Encode("DisplayName"), message.From.DisplayName);
+
+            }
         }
 
 

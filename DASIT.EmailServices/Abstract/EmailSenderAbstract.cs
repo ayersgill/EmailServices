@@ -13,8 +13,6 @@ namespace DASIT.EmailServices.Abstract
         protected string _subjectPrefix { get; set; }
         protected string _bodyPrefix { get; set; }
 
-        protected JsonSerializerOptions _mailMessageSerializerOptions { get; set; }
-
         public async Task SendHtmlEmailAsync(string recipient, string subject, string htmlMessage)
         {
             _logger.Debug("SendHtmlEmailAsync for {recipient}, Subject {subject}, HtmlMessage {htmlMessage}", recipient, subject, htmlMessage);

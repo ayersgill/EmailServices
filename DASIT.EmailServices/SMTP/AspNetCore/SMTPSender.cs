@@ -2,6 +2,7 @@
 using Serilog;
 using DASIT.EmailServices.AspNetCore;
 using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace DASIT.EmailServices.SMTP.AspNetCore
 {
@@ -23,13 +24,15 @@ namespace DASIT.EmailServices.SMTP.AspNetCore
             _subjectPrefix = configuration["EmailServices:SubjectPrefix"] ?? "";
             _bodyPrefix = configuration["EmailServices:BodyPrefix"] ?? "";
 
-            _mailMessageSerializerOptions = new JsonSerializerOptions
-                  {
-                      Converters =
-                            {
-                                new MailMessageJsonConverter()
-                            }
-                  };
+            // Needed to serialized of MailMessage Objects in logger
+
+            JsonConvert.DefaultSettings = (() =>
+            {
+                var settings = new JsonSerializerSettings();
+                settings.Converters.Add(new MailAddressConverter());
+                settings.Converters.Add(new MemoryStreamConverter());
+                return settings;
+            });
 
             _logger = Log.ForContext<SMTPSender>();
 

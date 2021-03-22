@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using Serilog.Exceptions;
+using System.Net.Mail;
 
 namespace EmailServicesContainedDemo
 {
