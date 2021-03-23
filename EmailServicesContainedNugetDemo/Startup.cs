@@ -29,7 +29,6 @@ namespace EmailServicesContainedNugetDemo
                 .ReadFrom.Configuration(Configuration)
                 .Enrich.WithExceptionDetails()
                 .Enrich.FromLogContext()
-                .Enrich.WithThreadId()
                 .CreateLogger();
 
             _logger = Log.ForContext<Startup>();
