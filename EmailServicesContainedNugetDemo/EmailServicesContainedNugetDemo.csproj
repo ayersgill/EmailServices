@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DASIT.EmailServices" Version="1.2.3027-dev" />
+    <PackageReference Include="DASIT.EmailServices" Version="1.2.4166-dev" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
     <PackageReference Include="Serilog.Exceptions" Version="6.0.0" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
