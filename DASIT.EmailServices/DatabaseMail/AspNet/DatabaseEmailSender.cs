@@ -1,9 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using System.Threading.Tasks;
-using Serilog;
-using System.Net.Sockets;
-using Microsoft.EntityFrameworkCore;
-using System.Data.SqlClient;
+﻿using Serilog;
 using DASIT.EmailServices.AspNet;
 
 namespace DASIT.EmailServices.DatabaseMail.AspNet
@@ -18,10 +13,7 @@ namespace DASIT.EmailServices.DatabaseMail.AspNet
 
             _profileName = profileName;
 
-
-            _databaseMailContextOptions = new DbContextOptionsBuilder<EmailContext>()
-                    .UseSqlServer(databaseConnection)
-                    .Options;
+            _databaseConnectionString = databaseConnection;
 
             _subjectPrefix = SubjectPrefix;
             _bodyPrefix = BodyPrefix;

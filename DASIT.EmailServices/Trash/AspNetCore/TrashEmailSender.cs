@@ -1,9 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System.Threading.Tasks;
 using Serilog;
-using System.Net.Sockets;
-using Microsoft.EntityFrameworkCore;
-using System.Data.SqlClient;
 using DASIT.EmailServices.AspNetCore;
 using Newtonsoft.Json;
 

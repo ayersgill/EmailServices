@@ -1,11 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using System.Threading.Tasks;
-using Serilog;
-using System.Net.Sockets;
-using Microsoft.EntityFrameworkCore;
-using System.Data.SqlClient;
-using System.Net.Http;
-using Flurl.Http;
+﻿using Serilog;
 using DASIT.EmailServices.AspNet;
 
 namespace DASIT.EmailServices.EmailAPI.AspNet
@@ -27,7 +20,7 @@ namespace DASIT.EmailServices.EmailAPI.AspNet
 
             _logger = Log.ForContext<EmailAPISender>();
 
-            _logger.Information("Configured to use {api_url} with token {token}", _url, _token);
+            _logger.Information("Configured to use mail api url {api_url} with token {token}", _url, _token);
 
         }
 
