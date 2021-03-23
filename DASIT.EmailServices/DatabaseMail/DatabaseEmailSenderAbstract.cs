@@ -1,10 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using DASIT.EmailServices.Abstract;
 using System.Net.Mail;
-using System.Data;
 using Microsoft.Data.SqlClient;
 using Newtonsoft.Json;
+using System.Data;
 
 namespace DASIT.EmailServices.DatabaseMail
 {
@@ -13,7 +12,7 @@ namespace DASIT.EmailServices.DatabaseMail
        
         protected string _profileName { get; set; }
 
-        protected DbContextOptions<EmailContext> _databaseMailContextOptions { get; set; }
+        protected string _databaseConnectionString { get; set; }
 
         public override async Task SendEmailAsync(MailMessage mailMessage)
         {
@@ -25,8 +24,16 @@ namespace DASIT.EmailServices.DatabaseMail
             try
             {
 
-                using (var db = new EmailContext(_databaseMailContextOptions))
+                using (SqlConnection conn = new SqlConnection(_databaseConnectionString))
                 {
+
+                    conn.Open();
+
+                    SqlCommand command = conn.CreateCommand();
+
+                    command.CommandText = "sp_send_dbmail";
+                    command.CommandType = CommandType.StoredProcedure;
+
                     string recipientsString = "";
 
                     foreach (var recipient in mailMessage.To)
@@ -47,29 +54,30 @@ namespace DASIT.EmailServices.DatabaseMail
                         tempBodyPrefix = _bodyPrefix.Replace("<br>", "\n");
                     }
 
+                    command.Parameters.Add(new SqlParameter("@profile_name", _profileName));
+                    command.Parameters.Add(new SqlParameter("@recipients", recipientsString));
+                    command.Parameters.Add(new SqlParameter("@subject", _subjectPrefix + mailMessage.Subject));
+                    command.Parameters.Add(new SqlParameter("@body", tempBodyPrefix + mailMessage.Body));
+                    command.Parameters.Add(new SqlParameter("@body_format", formatType));
 
-                    object[] parameters = {
-                        new SqlParameter("@param_profile_name", _profileName),
-                        new SqlParameter("@param_recipients", recipientsString),
-                        new SqlParameter("@param_subject", _subjectPrefix + mailMessage.Subject),
-                        new SqlParameter("@param_body", tempBodyPrefix + mailMessage.Body),
-                        new SqlParameter("@param_body_format", formatType),
-                        new SqlParameter
-                            {
-                                ParameterName = "@retVal",
-                                SqlDbType = SqlDbType.Int,
-                                Direction = ParameterDirection.Output,
-                                Value = -1
-                            }
+                    var retVal = new SqlParameter
+                    {
+                        ParameterName = "OUTPUT",
+                        SqlDbType = SqlDbType.Int,
+                        Direction = ParameterDirection.ReturnValue,
+                        Value = -1
                     };
 
-                    _logger.Debug("Calling stored procedure with {@sqlParameters}", parameters);
-
-                    await db.Database.ExecuteSqlRawAsync("EXEC @retVal = sp_send_dbmail @profile_name = @param_profile_name, " +
-                        "@recipients = @param_recipients, @subject = @param_subject, @body = @param_body, @body_format = @param_body_format", parameters);
 
 
-                    var result = (int) ((SqlParameter)parameters[5]).Value;
+                    //add the parameter to the SqlCommand object
+                    command.Parameters.Add(retVal);
+
+                    _logger.Debug("Calling stored procedure with {@sqlParameters}", command.Parameters);
+
+                    await command.ExecuteNonQueryAsync();
+
+                    var result = (int) retVal.Value;
 
                     if(result != 0)
                     {
