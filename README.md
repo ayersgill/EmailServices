@@ -7,15 +7,11 @@ Webslurper is running on wddaswebl03.ad.state.or.us on ports 25 (for smtp connec
 
 http://wddaswebl03.ad.state.or.us:8090/ Is the correct url to get to the UI to view the emailService
 
-If wddaswebl03.ad.state.or.us is rebooted or there is a problem with mailslurper, it is located in 
-C:\Program Files\mailslurper-1.14.1-windows\mailslurper.exe and needs to be run as admin (because we couldn't get it installed as a service)
-
-
-
 Supported Email Senders:
-Database Mail
-SMTP
-Email API
+Database Mail (DASIT.EmailServices.DatabaseMail.AspNetCore.DatabaseEmailSender or DASIT.EmailServices.DatabaseEmail.AspNet.DatabaseEmailSender)
+SMTP (DASIT.EmailServices.SMTP.AspNetCore.SMTPSender or DASIT.EmailServices.SMTP.AspNet.SMTPSender)
+Email API (DASIT.EmailServices.EmailAPI.AspNetCore.EmailAPISender or DASIT.EmailServices.EmailAPI.AspNet.EmailAPISender)
+Trash (DASIT.EmailServices.Trash.AspNetCore.TrashEmailSender or DASIT.EmailServices.Trash.AspNet.TrashEmailSender)
 
 Solution Organization
 ---------------------
@@ -35,6 +31,13 @@ Very basic .NET Core 2.1 web app for sending email by including the DASIT.EmailS
 
 EmailServicesNugetDemo:
 Very basic .NET Core 2.1 web app for sending email by including the DASIT.EmailServices nuget from the devops artifact feed.  Use this to observe the required libraries 
+and test functionality of the nuget library.
+
+EmailServicesContainedDemo:
+Very basic .NET Core 3.1 web app for sending email by including the DASIT.EmailServices project.  Use this to test immediate changes to the EmailServices.
+
+EmailServicesContainedNugetDemo:
+Very basic .NET Core 3.1 web app for sending email by including the DASIT.EmailServices nuget from the devops artifact feed.  Use this to observe the required libraries 
 and test functionality of the nuget library.
 
 .NET Core Usage
@@ -118,7 +121,7 @@ var send = EmailServiceFactory.GetEmailSender();
 
 await send.SendEmailAsync(<Appropriate arguments, see Interface documentation>);
 
-Note: It is not necessary to store send object locally.  The static EmailServiceFactory will hold it after the first creation and continue to provide it.
+Note: It is not necessary to store the send object locally.  The static EmailServiceFactory will hold it after the first creation and continue to provide it.
 
 .NET Framework Configuration
 ------------------------
