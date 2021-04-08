@@ -18,8 +18,6 @@ namespace EmailFactoryDemo
                 .ReadFrom.AppSettings()
                 .CreateLogger();
 
-            Log.Information("here");
-
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
