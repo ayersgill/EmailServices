@@ -1,5 +1,6 @@
 ﻿using Serilog;
 using DASIT.EmailServices.AspNet;
+using Newtonsoft.Json;
 
 namespace DASIT.EmailServices.EmailAPI.AspNet
 {
@@ -17,6 +18,14 @@ namespace DASIT.EmailServices.EmailAPI.AspNet
             _fromAddress = FromAddress;
             _subjectPrefix = SubjectPrefix;
             _bodyPrefix = BodyPrefix;
+
+            JsonConvert.DefaultSettings = (() =>
+            {
+                var settings = new JsonSerializerSettings();
+                settings.Converters.Add(new MailAddressConverter());
+                settings.Converters.Add(new MemoryStreamConverter());
+                return settings;
+            });
 
             _logger = Log.ForContext<EmailAPISender>();
 

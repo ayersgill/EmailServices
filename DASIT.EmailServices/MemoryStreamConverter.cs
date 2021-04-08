@@ -4,7 +4,7 @@ using System.Net.Mail;
 using Newtonsoft.Json;
 using System.IO;
 
-namespace DASIT.EmailServices.AspNetCore
+namespace DASIT.EmailServices
 {
 
     public class MemoryStreamConverter : JsonConverter
