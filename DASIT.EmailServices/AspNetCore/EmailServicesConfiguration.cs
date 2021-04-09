@@ -24,7 +24,7 @@ namespace DASIT.EmailServices.AspNetCore
                 // allows for dynamic implementation of Email Service
                 services.Add(new ServiceDescriptor(serviceType: typeof(IEmailService),
                                            implementationType: Type.GetType(EmailImplementation),
-                                           lifetime: ServiceLifetime.Transient));
+                                           lifetime: ServiceLifetime.Singleton));
             }
 
         }
