@@ -64,16 +64,6 @@ namespace DASIT.EmailServices.SMTP
                 _logger.Debug("Text Body for Email {body}", msg.Body);
             }
 
-            JsonConvert.DefaultSettings = (() =>
-            {
-                var settings = new JsonSerializerSettings();
-                settings.Converters.Add(new MailAddressConverter());
-                settings.Converters.Add(new MemoryStreamConverter());
-                return settings;
-            });
-
-
-
             using (var client = new MailKit.Net.Smtp.SmtpClient())
             {
                 try
