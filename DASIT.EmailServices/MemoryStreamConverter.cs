@@ -11,7 +11,7 @@ namespace DASIT.EmailServices
     {
         public override bool CanConvert(Type objectType)
         {
-            return typeof(MemoryStream).IsAssignableFrom(objectType);
+            return objectType == typeof(MemoryStream);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)

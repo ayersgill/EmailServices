@@ -13,14 +13,15 @@ namespace EmailFactoryNugetDemo
     {
         protected void Application_Start()
         {
+            Log.Logger = new LoggerConfiguration()
+               .ReadFrom.AppSettings()
+               .CreateLogger();
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-            Log.Logger = new LoggerConfiguration()
-               .ReadFrom.AppSettings()
-               .CreateLogger();
+            
         }
     }
 }
