@@ -19,20 +19,6 @@ Solution Organization
 DASIT.EmailServices:
 This is the good stuff and is the contents of the produced library file.
 
-EmailFactoryDemo:
-Very basic .NET Framework 4.7.2 web app for sending email by including the DASIT.EmailServices project.  Use this to test immediate changes to the EmailServices.  
-
-EmailFactoryNugetDemo:
-Very basic .NET Framework 4.7.2 web app for sending email by including the DASIT.EmailServices nuget from the devops artifact feed.  Use this to observe the required libraries 
-and test functionality of the nuget library.
-
-EmailServicesDemo:
-Very basic .NET Core 2.1 web app for sending email by including the DASIT.EmailServices project.  Use this to test immediate changes to the EmailServices.
-
-EmailServicesNugetDemo:
-Very basic .NET Core 2.1 web app for sending email by including the DASIT.EmailServices nuget from the devops artifact feed.  Use this to observe the required libraries 
-and test functionality of the nuget library.
-
 EmailServicesContainedDemo:
 Very basic .NET Core 3.1 web app for sending email by including the DASIT.EmailServices project.  Use this to test immediate changes to the EmailServices.
 
@@ -112,59 +98,6 @@ used determines who the email appears to be from.
     }
   }
 
-
-
-.NET Framework Usage
------------------------
-
-var send = EmailServiceFactory.GetEmailSender();
-
-await send.SendEmailAsync(<Appropriate arguments, see Interface documentation>);
-
-Note: It is not necessary to store the send object locally.  The static EmailServiceFactory will hold it after the first creation and continue to provide it.
-
-.NET Framework Configuration
-------------------------
-
-Configuration for EmailServices must be set in the appsettings section of the web.configuration.
-
-Here you just need to specify the classname of the senderfactory you want to use (DO NOT use the full name, just the classname)
-
-The EmailSubjectPrefix and EmailBodyPrefix are optional.  Line breaks in the BodyPrefix can be either \n or <br> (with &lt; and &gt; used to escape html tags
-and using &#10; for \n) EmailServices will check it and convert it correctly based on the email type being sent (HTML or TEXT)
-
-Similar to the Net Core configuration, each sender will look for its own needed configuration values, so the ones not needed will be ignored
-and not cause problems (Although not recommended for clarity).
-
-The Profile Name for the DatabaseEmailSender must be worked out with the Database Administrator, the profile
-used determines who the email appears to be from.
-
-<appSettings>
-
-	<add key="EmailSenderFactory" value="EmailAPISenderFactory"/> // or SMTPSenderFactory or DatabaseEmailSenderFactory
-	
-	<add key="EmailSubjectPrefix" value="Factory Test - " />
-    <add key="EmailBodyPrefix" value="Factory Test&lt;br&gt;&lt;br&gt;" />
-	
-    <add key="EmailAPIUrl" value="https://emailapi-dev.dasapp.state.or.us/send" />
-    <add key="EmailAPIToken" value="5908D47C-85D3-4024-8C2B-6EC9464398AD" />
-    <add key="EmailAPIFrom" value="ACH.Coordinator@oregon.gov" />
-
-	// SMTP Sender settings
-	<add key="EmailFromAddress" value="demo@oregon.gov" />
-	<add key="EmailFromName" value="Demo Sender" />
-	<add key="EmailServer" value="10.107.129.154" />
-	<add key="EmailPort" value="2500" />
-
-	// Database Mail Settings
-	<add key="EmailProfileName" value="Demo_Profile" />
-	<add key="EmailDatabaseConnection" value="Server=wpdasclr04c.ad.state.or.us;Database=msdb;Trusted_Connection=True" />
-
-	
-	
-  </appSettings>
-  
-  
 
 
 
