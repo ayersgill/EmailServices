@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DASIT.LoggingSupport" Version="3.1.6457-Amsterdam-dev" />
+    <PackageReference Include="DASIT.LoggingSupport" Version="3.1.21.1-Amsterdam-dev" />
     <PackageReference Include="Flurl.Http" Version="2.4.2" />
     <PackageReference Include="MailKit" Version="2.8.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.21" />
