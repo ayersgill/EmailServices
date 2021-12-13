@@ -5,9 +5,9 @@ VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DASIT.EmailServices", "DASIT.EmailServices\DASIT.EmailServices.csproj", "{4307C48C-3A34-449D-9E7A-71BB9D850AE0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailServicesContainedDemo", "EmailServicesContainedDemo\EmailServicesContainedDemo.csproj", "{2DCA0AB4-FD2F-4250-A335-EDCF6E183CC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailServicesAmsterdamDemo", "EmailServicesContainedDemo\EmailServicesAmsterdamDemo.csproj", "{2DCA0AB4-FD2F-4250-A335-EDCF6E183CC3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailServicesContainedNugetDemo", "EmailServicesContainedNugetDemo\EmailServicesContainedNugetDemo.csproj", "{31BE8D3C-2E1A-412A-963C-766A6F9B7B6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailServicesAmsterdamNugetDemo", "EmailServicesContainedNugetDemo\EmailServicesAmsterdamNugetDemo.csproj", "{31BE8D3C-2E1A-412A-963C-766A6F9B7B6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

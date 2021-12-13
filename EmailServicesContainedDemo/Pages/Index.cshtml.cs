@@ -10,7 +10,7 @@ using DASIT.EmailServices.AspNetCore;
 using System.ComponentModel.DataAnnotations;
 using Serilog;
 
-namespace EmailServicesContainedDemo.Pages
+namespace EmailServicesAmsterdamDemo.Pages
 {
     public class IndexModel : PageModel
     {

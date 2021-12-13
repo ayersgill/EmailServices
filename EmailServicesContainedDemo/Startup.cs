@@ -14,7 +14,7 @@ using Serilog;
 using Serilog.Exceptions;
 using System.Net.Mail;
 
-namespace EmailServicesContainedDemo
+namespace EmailServicesAmsterdamDemo
 {
     public class Startup
     {
