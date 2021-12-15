@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DASIT.EmailServices" Version="3.1.21.1-Amsterdam-dev" />
+    <PackageReference Include="DASIT.EmailServices" Version="2.0.0-6506" />
   </ItemGroup>
 
 </Project>
