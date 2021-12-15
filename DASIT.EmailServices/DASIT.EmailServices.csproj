@@ -6,11 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DASIT.LoggingSupport" Version="3.1.21.1-Amsterdam" />
-    <PackageReference Include="Flurl.Http" Version="2.4.2" />
-    <PackageReference Include="MailKit" Version="2.8.0" />
+    <PackageReference Include="DASIT.LoggingSupport" Version="1.0.0" />
+    <PackageReference Include="Flurl.Http" Version="3.2.0" />
+    <PackageReference Include="MailKit" Version="2.15.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.21" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
   </ItemGroup>
 
 </Project>
