@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DASIT.LoggingSupport" Version="3.1.21.1-Amsterdam-dev" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\DASIT.EmailServices\DASIT.EmailServices.csproj" />
   </ItemGroup>
 
