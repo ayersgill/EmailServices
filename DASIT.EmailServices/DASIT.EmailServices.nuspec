@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <description>Provides EmailServices interface and the implementation to connect to several different email solutions.</description>
+    <releaseNotes>Switch to Amsterdam ecosystem and Amsterdam version of Logging Support library.</releaseNotes>
+    <copyright>$copyright$</copyright>
+  </metadata>
+</package>
