@@ -5,9 +5,9 @@ VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DASIT.EmailServices", "DASIT.EmailServices\DASIT.EmailServices.csproj", "{4307C48C-3A34-449D-9E7A-71BB9D850AE0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailServicesAmsterdamDemo", "EmailServicesContainedDemo\EmailServicesAmsterdamDemo.csproj", "{2DCA0AB4-FD2F-4250-A335-EDCF6E183CC3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailServicesAmsterdamDemo", "EmailServicesAmsterdamDemo\EmailServicesAmsterdamDemo.csproj", "{5821B384-341F-43B7-AFA6-3D357D32D541}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailServicesAmsterdamNugetDemo", "EmailServicesContainedNugetDemo\EmailServicesAmsterdamNugetDemo.csproj", "{31BE8D3C-2E1A-412A-963C-766A6F9B7B6F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailServicesAmsterdamNugetDemo", "EmailServicesAmsterdamNugetDemo\EmailServicesAmsterdamNugetDemo.csproj", "{0379670B-CB78-495F-985C-DF828CD17C9A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,18 +22,18 @@ Global
 		{4307C48C-3A34-449D-9E7A-71BB9D850AE0}.Integration|Any CPU.Build.0 = Integration|Any CPU
 		{4307C48C-3A34-449D-9E7A-71BB9D850AE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4307C48C-3A34-449D-9E7A-71BB9D850AE0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2DCA0AB4-FD2F-4250-A335-EDCF6E183CC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2DCA0AB4-FD2F-4250-A335-EDCF6E183CC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2DCA0AB4-FD2F-4250-A335-EDCF6E183CC3}.Integration|Any CPU.ActiveCfg = Integration|Any CPU
-		{2DCA0AB4-FD2F-4250-A335-EDCF6E183CC3}.Integration|Any CPU.Build.0 = Integration|Any CPU
-		{2DCA0AB4-FD2F-4250-A335-EDCF6E183CC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2DCA0AB4-FD2F-4250-A335-EDCF6E183CC3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{31BE8D3C-2E1A-412A-963C-766A6F9B7B6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{31BE8D3C-2E1A-412A-963C-766A6F9B7B6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{31BE8D3C-2E1A-412A-963C-766A6F9B7B6F}.Integration|Any CPU.ActiveCfg = Integration|Any CPU
-		{31BE8D3C-2E1A-412A-963C-766A6F9B7B6F}.Integration|Any CPU.Build.0 = Integration|Any CPU
-		{31BE8D3C-2E1A-412A-963C-766A6F9B7B6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{31BE8D3C-2E1A-412A-963C-766A6F9B7B6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5821B384-341F-43B7-AFA6-3D357D32D541}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5821B384-341F-43B7-AFA6-3D357D32D541}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5821B384-341F-43B7-AFA6-3D357D32D541}.Integration|Any CPU.ActiveCfg = Debug|Any CPU
+		{5821B384-341F-43B7-AFA6-3D357D32D541}.Integration|Any CPU.Build.0 = Debug|Any CPU
+		{5821B384-341F-43B7-AFA6-3D357D32D541}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5821B384-341F-43B7-AFA6-3D357D32D541}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0379670B-CB78-495F-985C-DF828CD17C9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0379670B-CB78-495F-985C-DF828CD17C9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0379670B-CB78-495F-985C-DF828CD17C9A}.Integration|Any CPU.ActiveCfg = Debug|Any CPU
+		{0379670B-CB78-495F-985C-DF828CD17C9A}.Integration|Any CPU.Build.0 = Debug|Any CPU
+		{0379670B-CB78-495F-985C-DF828CD17C9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0379670B-CB78-495F-985C-DF828CD17C9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
